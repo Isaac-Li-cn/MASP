@@ -17,20 +17,32 @@ def get_features(Config):
 
     img_features = np.array(img_features)
 
-    np.save("img_features.npy", img_features)
+    img_features = np.squeeze(img_features)
+
+    print(img_features.shape)
+
+    # np.save("img_features.npy", img_features)
 
 
 def context_classification_by_kmeans(img_features):
 
-    img_features = np.squeeze(img_features)
-
     # print(img_features)
 
-    y_pred = KMeans(n_clusters=10, random_state=1999).fit_predict(img_features)
+    y_pred = KMeans(n_clusters=10, random_state=2316).fit_predict(img_features)
 
     x = np.arange(len(y_pred))
 
-    plt.scatter(x, y_pred, alpha=0.6)
+    plt.scatter(x, y_pred, alpha=0.6, s=1)
+    plt.axvline(x=255, color='r', linestyle='-')
+    plt.axvline(x=398, color='r', linestyle='-')
+    plt.axvline(x=542, color='r', linestyle='-')
+    plt.axvline(x=629, color='r', linestyle='-')
+    plt.axvline(x=909, color='r', linestyle='-')
+    plt.axvline(x=1072, color='r', linestyle='-')
+    plt.axvline(x=1194, color='r', linestyle='-')
+    plt.axvline(x=1481, color='r', linestyle='-')
+    plt.axvline(x=1582, color='r', linestyle='-')
+    plt.axvline(x=1675, color='r', linestyle='-')
     plt.show()
 
     dataframe = pd.DataFrame({'y_pred': y_pred})

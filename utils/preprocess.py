@@ -8,6 +8,10 @@ def resnet_18_encoder(imgs):
 
     model = torchvision.models.resnet18(pretrained=True)
 
+    model = torch.nn.Sequential(*list(model.children())[:-1])  # 去掉网络的最后一层
+
+    model.eval()
+
     for img in imgs:
         img = torch.unsqueeze(img, 0)
         img_feature = model(img)

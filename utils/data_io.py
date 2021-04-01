@@ -19,6 +19,7 @@ def load_dataset(dataset_dir):
 
     imgs = []
     for context_name in os.listdir(dataset_dir):
+        print(context_name)
         context_dir = os.path.join(dataset_dir, context_name)
         for img_name in os.listdir(context_dir):
             figure_dir = os.path.join(context_dir, img_name)

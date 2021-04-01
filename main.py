@@ -10,6 +10,6 @@ if __name__ == "__main__":
 
     img_features = np.load("img_features.npy")
 
-    print(len(img_features[0][0]))
+    print(img_features.shape)
 
     context_classification_by_kmeans(img_features)
