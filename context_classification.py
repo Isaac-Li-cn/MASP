@@ -3,11 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from sklearn.cluster import KMeans, DBSCAN
+from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram
 
 from utils.data_io import load_dataset
 from utils.preprocess import resnet_18_encoder
-from utils.tools import non_iid_index
+from utils.tools import get_distance_matrix
 
 
 def get_features(Config):
@@ -29,7 +30,7 @@ def get_features(Config):
 def context_classification_by_kmeans(img_features):
     # print(img_features)
 
-    n_class = int(len(img_features) / 100)
+    n_class = int(len(img_features) / 20)
 
     print(n_class)
 
@@ -78,26 +79,51 @@ def save_kmeans_array(img_features, cluster_result):
 
 
 def context_cluster_by_dbscan(kmeans_array):
-    # 计算距离矩阵
 
-    cluster_len = len(kmeans_array)
-
-    distance_matrix = np.zeros((cluster_len, cluster_len))
-
-    for i in range(cluster_len):
-        for j in range(cluster_len):
-            if i == j:
-                distance_matrix[i][j] = 0
-            else:
-                distance_matrix[i][j] = non_iid_index(kmeans_array[i], kmeans_array[j])
-
-    print(distance_matrix[0])
+    distance_matrix = get_distance_matrix(kmeans_array)
 
     sns.heatmap(data=distance_matrix, vmin=10, vmax=20, cmap='Blues')
 
     plt.show()
 
-    # clustering = DBSCAN(eps=13, min_samples=5, metric='precomputed').fit(distance_matrix)
-    #
-    # print(len(clustering.labels_))
-    # print(clustering.labels_)
+    clustering = DBSCAN(eps=12, min_samples=3, metric='precomputed').fit(distance_matrix)
+
+    print(len(clustering.labels_))
+    print(clustering.labels_)
+
+
+def context_cluster_by_hierarchy_cluster(kmeans_array):
+
+    distance_matrix = get_distance_matrix(kmeans_array)
+
+    model = AgglomerativeClustering(affinity='precomputed',
+                                    distance_threshold=0,
+                                    n_clusters=None,
+                                    linkage='average')
+
+    model = model.fit(distance_matrix)
+
+    plot_dendrogram(model, truncate_mode='level', p=10)
+    plt.show()
+
+
+def plot_dendrogram(model, **kwargs):
+    # Create linkage matrix and then plot the dendrogram
+
+    # create the counts of samples under each node
+    counts = np.zeros(model.children_.shape[0])
+    n_samples = len(model.labels_)
+    for i, merge in enumerate(model.children_):
+        current_count = 0
+        for child_idx in merge:
+            if child_idx < n_samples:
+                current_count += 1  # leaf node
+            else:
+                current_count += counts[child_idx - n_samples]
+        counts[i] = current_count
+
+    linkage_matrix = np.column_stack([model.children_, model.distances_,
+                                      counts]).astype(float)
+
+    # Plot the corresponding dendrogram
+    dendrogram(linkage_matrix, **kwargs)

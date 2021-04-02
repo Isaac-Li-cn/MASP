@@ -1,8 +1,9 @@
 import numpy as np
 
 from config import Config
-from context_classification import context_classification_by_kmeans, context_cluster_by_dbscan
+from context_classification import context_classification_by_kmeans, context_cluster_by_hierarchy_cluster
 from context_classification import get_features
+from context_classification import context_cluster_by_dbscan
 
 if __name__ == "__main__":
 

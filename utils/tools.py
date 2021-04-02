@@ -104,6 +104,23 @@ def non_iid_index(x, y):
     return np.linalg.norm(((x_mean - y_mean) / x_y_union_std), ord=2)
 
 
+def get_distance_matrix(cluster_phase1):
+    # 计算距离矩阵
+
+    cluster_len = len(cluster_phase1)
+
+    distance_matrix = np.zeros((cluster_len, cluster_len))
+
+    for i in range(cluster_len):
+        for j in range(cluster_len):
+            if i == j:
+                distance_matrix[i][j] = 0
+            else:
+                distance_matrix[i][j] = non_iid_index(cluster_phase1[i], cluster_phase1[j])
+
+    return distance_matrix
+
+
 if __name__ == "__main__":
     img_features = np.load("../img_features.npy")
 

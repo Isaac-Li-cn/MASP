@@ -2,6 +2,7 @@ import os
 
 from torchvision import transforms
 from PIL import Image
+from imagecorruptions import corrupt
 
 
 def load_dataset(dataset_dir):
@@ -29,3 +30,16 @@ def load_dataset(dataset_dir):
         print(len(imgs))
 
     return imgs
+
+
+def load_corruption_dataset():
+    # via number:
+    for i in range(15):
+        for severity in range(5):
+            corrupted = corrupt(image, corruption_number=i, severity=severity + 1)
+
+
+if __name__ == "__main__":
+
+    load_corruption_dataset()
+
