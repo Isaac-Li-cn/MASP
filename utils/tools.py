@@ -107,9 +107,9 @@ def non_iid_index(x, y):
 if __name__ == "__main__":
     img_features = np.load("../img_features.npy")
 
-    test1 = img_features[0:100]
+    test1 = img_features[0:1]
 
-    test2 = img_features[820:930]
+    test2 = img_features[800:801]
 
     NI = non_iid_index(test1, test2)
 
