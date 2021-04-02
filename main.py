@@ -1,8 +1,9 @@
 import numpy as np
 
 from config import Config
-from context_classification import context_classification_by_kmeans
+from context_classification import context_classification_by_kmeans, context_cluster_by_hierarchy_cluster
 from context_classification import get_features
+from context_classification import context_cluster_by_dbscan
 
 if __name__ == "__main__":
 
@@ -12,4 +13,6 @@ if __name__ == "__main__":
 
     print(img_features.shape)
 
-    context_classification_by_kmeans(img_features)
+    cluster_phase1 = context_classification_by_kmeans(img_features)
+
+    context_cluster_by_dbscan(cluster_phase1)
