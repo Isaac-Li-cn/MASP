@@ -1,4 +1,4 @@
-import os
+import os, sys, shutil
 
 import numpy as np
 
@@ -8,6 +8,28 @@ from torchvision import transforms
 from PIL import Image
 from imagecorruptions import corrupt
 from tqdm import tqdm
+from torch.utils.data import Dataset
+import glob
+
+
+class coco_c(Dataset):
+    def __init__(self, root_dir, size=(416, 416)):
+        self.files = glob.glob(root_dir)
+        self.size = size
+        self.transform = transforms.Compose([transforms.Resize(256),  # 将图像调整为256×256像素
+                                             transforms.CenterCrop(224),  # 将图像中心裁剪出来，大小为224×224像素
+                                             transforms.ToTensor()  # 将图像转换为PyTorch张量（tensor）数据类型
+                                             ])
+
+    def __len__(self):
+        return len(self.files)
+
+    def __getitem__(self, idx):
+        img = Image.open(self.files[idx])
+        img = self.transform(img)
+        img = np.array(img)
+        label = int(self.files[idx][-18])  # todo 标签暂时为倒数18位
+        return img, label
 
 
 def load_dataset(dataset_dir):
@@ -91,7 +113,6 @@ def gen_each_class_train(corrupt_type, severity_type):
         save_dataset(corrupted_image, img_train_name, corrupt_type, severity_type, img_type='train')
 
 
-
 def gen_each_class_val(corrupt_type, severity_type):
     val_dir = os.path.join(Config.coco_dir, Config.val_set)
 
@@ -112,10 +133,39 @@ def gen_class():
 
 
 def load_yolo(model):
-
     for k, v in model.named_parameters():
         print(k)
 
 
+def classify_folder_gen_train():
+    task_folder_list = ['../../coco_c/images/train7-2', '../../coco_c/images/train8-2',
+                        '../../coco_c/images/train9-2', '../../coco_c/images/train10-2']
+    classify_floder = '../../coco_c/classify_folder_train'
+    classify_folder_gen(classify_floder, task_folder_list)
+
+
+def classify_folder_gen(classify_floder, task_folder_list):
+    for task_folder_index in range(len(task_folder_list)):
+        file_list = os.listdir(task_folder_list[task_folder_index])
+
+        for file_obj in file_list:
+            file_path = os.path.join(task_folder_list[task_folder_index], file_obj)
+
+            new_name = str(task_folder_index) + '_' + file_obj
+
+            newfile_path = os.path.join(classify_floder, str(new_name))
+
+            shutil.copyfile(file_path, newfile_path)
+
+            # print(new_name[0])
+
+
+def classify_folder_gen_val():
+    task_folder_list = ['../../coco_c/images/val7-2', '../../coco_c/images/val8-2',
+                        '../../coco_c/images/val9-2', '../../coco_c/images/val10-2']
+    classify_floder = '../../coco_c/classify_folder_val'
+    classify_folder_gen(classify_floder, task_folder_list)
+
+
 if __name__ == "__main__":
-    gen_class()
+    classify_folder_gen_val()
