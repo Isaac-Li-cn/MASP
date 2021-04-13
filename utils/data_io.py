@@ -1,8 +1,13 @@
 import os
 
+import numpy as np
+
+from config import Config
+
 from torchvision import transforms
 from PIL import Image
 from imagecorruptions import corrupt
+from tqdm import tqdm
 
 
 def load_dataset(dataset_dir):
@@ -32,14 +37,85 @@ def load_dataset(dataset_dir):
     return imgs
 
 
-def load_corruption_dataset():
-    # via number:
-    for i in range(15):
-        for severity in range(5):
-            corrupted = corrupt(image, corruption_number=i, severity=severity + 1)
+# def load_corruption_dataset():
+#     # via number:
+#     for i in range(15):
+#         for severity in range(5):
+#             corrupted = corrupt(image, corruption_number=i, severity=severity + 1)
+
+
+def coco_loading():
+    train_set = 'images/train2017'
+    val_set = 'images/val2017'
+
+    train_dir = os.path.join(Config.coco_dir, train_set)
+
+    for img_train_name in os.listdir(train_dir):
+        print(img_train_name)
+        img_train = Image.open(os.path.join(train_dir, img_train_name)).convert('RGB')
+
+    # img_train = Image.open('../bus.jpg')
+    #
+    # img_train.save('o.jpg')
+    #
+    # img_train = np.array(img_train)
+    #
+    # for i in range(15):
+    #     for severity in range(5):
+    #         corrupted = corrupt(img_train, corruption_number=i, severity=severity + 1)
+    #
+    #         corrupted_image = Image.fromarray(corrupted, 'RGB')
+    #
+    #         corrupted_image.save(str(i) + str(severity) + '.jpg')
+
+
+def save_dataset(corrupted_image, img_name, corrupt_type, severity_type, img_type='train'):
+    img_dir = os.path.join(Config.coco_c, img_type + str(corrupt_type) + '-' + str(severity_type))
+
+    if not os.path.exists(img_dir):
+        # 目录不存在创建，makedirs可以创建多级目录
+        os.makedirs(img_dir)
+
+    corrupted_image.save(os.path.join(img_dir, img_name))
+
+
+def gen_each_class_train(corrupt_type, severity_type):
+    train_dir = os.path.join(Config.coco_dir, Config.train_set)
+
+    for img_train_name in tqdm(os.listdir(train_dir)):
+        img_train = Image.open(os.path.join(train_dir, img_train_name)).convert('RGB')
+        img_train = np.array(img_train)
+        corrupted = corrupt(img_train, corruption_number=corrupt_type, severity=severity_type + 1)
+        corrupted_image = Image.fromarray(corrupted, 'RGB')
+
+        save_dataset(corrupted_image, img_train_name, corrupt_type, severity_type, img_type='train')
+
+
+
+def gen_each_class_val(corrupt_type, severity_type):
+    val_dir = os.path.join(Config.coco_dir, Config.val_set)
+
+    for img_val_name in tqdm(os.listdir(val_dir)):
+        img_val = Image.open(os.path.join(val_dir, img_val_name)).convert('RGB')
+        img_val = np.array(img_val)
+        corrupted = corrupt(img_val, corruption_number=corrupt_type, severity=severity_type + 1)
+        corrupted_image = Image.fromarray(corrupted, 'RGB')
+
+        save_dataset(corrupted_image, img_val_name, corrupt_type, severity_type, img_type='val')
+
+
+def gen_class():
+    for i in range(7, 11):  # 数字固定，与imagecorruptions库保持一致 7， 11
+        for severity in range(2, 3):  # 3
+            print("Start generating style %d and %d" % (i, severity))
+            gen_each_class_train(i, severity)
+
+
+def load_yolo(model):
+
+    for k, v in model.named_parameters():
+        print(k)
 
 
 if __name__ == "__main__":
-
-    load_corruption_dataset()
-
+    gen_class()

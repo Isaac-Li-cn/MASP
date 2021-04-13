@@ -1,5 +1,7 @@
 import torch
 
+from utils.data_io import load_yolo
+
 # Model
 model = torch.hub.load('ultralytics/yolov5', 'yolov5x', pretrained=True)
 
