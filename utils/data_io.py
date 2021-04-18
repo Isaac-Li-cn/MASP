@@ -1,15 +1,16 @@
-import os, sys, shutil
+import glob
+import os
+import shutil
+import random
 
 import numpy as np
-
-from config import Config
-
-from torchvision import transforms
 from PIL import Image
 from imagecorruptions import corrupt
-from tqdm import tqdm
 from torch.utils.data import Dataset
-import glob
+from torchvision import transforms
+from tqdm import tqdm
+
+from config import Config
 
 
 class coco_c(Dataset):
@@ -140,15 +141,19 @@ def load_yolo(model):
 def classify_folder_gen_train():
     task_folder_list = ['../../coco_c/images/train7-2', '../../coco_c/images/train8-2',
                         '../../coco_c/images/train9-2', '../../coco_c/images/train10-2']
-    classify_floder = '../../coco_c/classify_folder_train'
-    classify_folder_gen(classify_floder, task_folder_list)
+    classify_floder = '../../coco_c/classify_folder_train_mini'
+    length = 2000
+    classify_folder_gen(classify_floder, task_folder_list, length)
 
 
-def classify_folder_gen(classify_floder, task_folder_list):
+def classify_folder_gen(classify_floder, task_folder_list, length):
     for task_folder_index in range(len(task_folder_list)):
         file_list = os.listdir(task_folder_list[task_folder_index])
 
-        for file_obj in file_list:
+        random.shuffle(file_list)
+
+        for file_obj_index in range(length):  # 随机选择样本构建特征集
+            file_obj = file_list[file_obj_index]
             file_path = os.path.join(task_folder_list[task_folder_index], file_obj)
 
             new_name = str(task_folder_index) + '_' + file_obj
@@ -163,9 +168,11 @@ def classify_folder_gen(classify_floder, task_folder_list):
 def classify_folder_gen_val():
     task_folder_list = ['../../coco_c/images/val7-2', '../../coco_c/images/val8-2',
                         '../../coco_c/images/val9-2', '../../coco_c/images/val10-2']
-    classify_floder = '../../coco_c/classify_folder_val'
-    classify_folder_gen(classify_floder, task_folder_list)
+    classify_floder = '../../coco_c/classify_folder_val_mini'
+    length = 500
+    classify_folder_gen(classify_floder, task_folder_list, length)
 
 
 if __name__ == "__main__":
+    classify_folder_gen_train()
     classify_folder_gen_val()

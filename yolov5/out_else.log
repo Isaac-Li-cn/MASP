@@ -1,0 +1,198 @@
+nohup: ignoring input
+YOLOv5 🚀 v4.0-174-g9c803f2 torch 1.8.1+cu102 CUDA:0 (GeForce RTX 2080 Ti, 11019.4375MB)
+                                             CUDA:1 (GeForce RTX 2080 Ti, 11019.4375MB)
+                                             CUDA:3 (GeForce RTX 2080 Ti, 11016.3125MB)
+
+Added key: store_based_barrier_key:1 to store for rank: 0
+Namespace(adam=False, artifact_alias='latest', batch_size=64, bbox_interval=-1, bucket='', cache_images=False, cfg='', data='data/coco_c_7_2.yaml', device='0,1,3', entity=None, epochs=20, evolve=False, exist_ok=False, global_rank=0, hyp='data/hyp.scratch.yaml', image_weights=False, img_size=[640, 640], label_smoothing=0.0, linear_lr=False, local_rank=0, multi_scale=False, name='model_7_2_all_layer', noautoanchor=False, nosave=False, notest=False, project='runs/train', quad=False, rect=False, resume=False, save_dir='runs/train/model_7_2_all_layer2', save_period=-1, single_cls=False, sync_bn=False, total_batch_size=192, upload_dataset=False, weights='yolov5s.pt', workers=8, world_size=3)
+[34m[1mtensorboard: [0mStart with 'tensorboard --logdir runs/train', view at http://localhost:6006/
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+[34m[1mhyperparameters: [0mlr0=0.01, lrf=0.2, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=0.05, cls=0.5, cls_pw=1.0, obj=1.0, obj_pw=1.0, iou_t=0.2, anchor_t=4.0, fl_gamma=0.0, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, mosaic=1.0, mixup=0.0
+wandb: Currently logged in as: yunzhe (use `wandb login --relogin` to force relogin)
+wandb: Tracking run with wandb version 0.10.26
+wandb: Syncing run model_7_2_all_layer2
+wandb: ⭐️ View project at https://wandb.ai/yunzhe/YOLOv5
+wandb: 🚀 View run at https://wandb.ai/yunzhe/YOLOv5/runs/3a1qszqh
+wandb: Run data is saved locally in /home/lion/yunzhe/yolov5/wandb/run-20210414_142212-3a1qszqh
+wandb: Run `wandb offline` to turn off syncing.
+
+
+                 from  n    params  module                                  arguments                     
+  0                -1  1      3520  models.common.Focus                     [3, 32, 3]                    
+  1                -1  1     18560  models.common.Conv                      [32, 64, 3, 2]                
+  2                -1  1     18816  models.common.C3                        [64, 64, 1]                   
+  3                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]               
+  4                -1  1    156928  models.common.C3                        [128, 128, 3]                 
+  5                -1  1    295424  models.common.Conv                      [128, 256, 3, 2]              
+  6                -1  1    625152  models.common.C3                        [256, 256, 3]                 
+  7                -1  1   1180672  models.common.Conv                      [256, 512, 3, 2]              
+  8                -1  1    656896  models.common.SPP                       [512, 512, [5, 9, 13]]        
+  9                -1  1   1182720  models.common.C3                        [512, 512, 1, False]          
+ 10                -1  1    131584  models.common.Conv                      [512, 256, 1, 1]              
+ 11                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 12           [-1, 6]  1         0  models.common.Concat                    [1]                           
+ 13                -1  1    361984  models.common.C3                        [512, 256, 1, False]          
+ 14                -1  1     33024  models.common.Conv                      [256, 128, 1, 1]              
+ 15                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 16           [-1, 4]  1         0  models.common.Concat                    [1]                           
+ 17                -1  1     90880  models.common.C3                        [256, 128, 1, False]          
+ 18                -1  1    147712  models.common.Conv                      [128, 128, 3, 2]              
+ 19          [-1, 14]  1         0  models.common.Concat                    [1]                           
+ 20                -1  1    296448  models.common.C3                        [256, 256, 1, False]          
+ 21                -1  1    590336  models.common.Conv                      [256, 256, 3, 2]              
+ 22          [-1, 10]  1         0  models.common.Concat                    [1]                           
+ 23                -1  1   1182720  models.common.C3                        [512, 512, 1, False]          
+ 24      [17, 20, 23]  1    229245  models.yolo.Detect                      [80, [[10, 13, 16, 30, 33, 23], [30, 61, 62, 45, 59, 119], [116, 90, 156, 198, 373, 326]], [128, 256, 512]]
+Model Summary: 283 layers, 7276605 parameters, 7276605 gradients, 17.1 GFLOPS
+
+Transferred 362/362 items from yolov5s.pt
+Scaled weight_decay = 0.0015
+Optimizer groups: 62 .bias, 62 conv.weight, 59 other
+[34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 fo[0m[34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 fo[0m
+[34m[1mval: [0mScanning '../coco_c/labels/val7-2.cache' images and labels... 4952 found, 4[0m[34m[1mval: [0mScanning '../coco_c/labels/val7-2.cache' images and labels... 4952 found, 4[0m
+Plotting labels... 
+[34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 found, 1021 missing, 0 empty, 0 corrupted: 100%|██████████| 118287/118287 [00:00<?, ?it/s][34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 found, 1021 missing, 0 empty, 0 corrupted: 100%|██████████| 118287/118287 [00:00<?, ?it/s]
+[34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 found, 1021 missing, 0 empty, 0 corrupted: 100%|██████████| 118287/118287 [00:00<?, ?it/s][34m[1mtrain: [0mScanning '../coco_c/labels/train7-2.cache' images and labels... 117266 found, 1021 missing, 0 empty, 0 corrupted: 100%|██████████| 118287/118287 [00:00<?, ?it/s]
+
+[34m[1mautoanchor: [0mAnalyzing anchors... anchors/target = 4.45, Best Possible Recall (BPR) = 0.9949
+Image sizes 640 train, 640 test
+Using 5 dataloader workers
+Logging results to runs/train/model_7_2_all_layer2
+Starting training for 20 epochs...
+
+     Epoch   gpu_mem       box       obj       cls     total    labels  img_size
+  0%|                                                   | 0/617 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "train.py", line 544, in <module>
+  0%|                                                   | 0/617 [00:00<?, ?it/s]
+    train(hyp, opt, device, tb_writer)
+  File "train.py", line 304, in train
+    pred = model(imgs)  # forward
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 705, in forward
+    output = self.module(*inputs[0], **kwargs[0])
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 123, in forward
+    return self.forward_once(x, profile)  # single-scale inference, train
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 139, in forward_once
+    x = m(x)  # run
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 90, in forward
+    return self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), dim=1))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 40, in forward
+    return self.act(self.bn(self.conv(x)))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 399, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/conv.py", line 396, in _conv_forward
+    self.padding, self.dilation, self.groups)
+RuntimeError: CUDA out of memory. Tried to allocate 26.00 MiB (GPU 1; 10.76 GiB total capacity; 9.58 GiB already allocated; 27.12 MiB free; 9.61 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "train.py", line 544, in <module>
+    train(hyp, opt, device, tb_writer)
+  File "train.py", line 304, in train
+    pred = model(imgs)  # forward
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 705, in forward
+    output = self.module(*inputs[0], **kwargs[0])
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 123, in forward
+    return self.forward_once(x, profile)  # single-scale inference, train
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 139, in forward_once
+    x = m(x)  # run
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 90, in forward
+    return self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), dim=1))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 40, in forward
+    return self.act(self.bn(self.conv(x)))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/activation.py", line 394, in forward
+    return F.silu(input, inplace=self.inplace)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/functional.py", line 1796, in silu
+    return torch._C._nn.silu(input)
+RuntimeError: CUDA out of memory. Tried to allocate 50.00 MiB (GPU 0; 10.76 GiB total capacity; 9.49 GiB already allocated; 21.12 MiB free; 9.61 GiB reserved in total by PyTorch)
+Images sizes do not match. This will causes images to be display incorrectly in the UI.
+Traceback (most recent call last):
+  File "train.py", line 544, in <module>
+    train(hyp, opt, device, tb_writer)
+  File "train.py", line 304, in train
+    pred = model(imgs)  # forward
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/parallel/distributed.py", line 705, in forward
+    output = self.module(*inputs[0], **kwargs[0])
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 123, in forward
+    return self.forward_once(x, profile)  # single-scale inference, train
+  File "/home/lion/yunzhe/yolov5/models/yolo.py", line 139, in forward_once
+    x = m(x)  # run
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 90, in forward
+    return self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), dim=1))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/yunzhe/yolov5/models/common.py", line 40, in forward
+    return self.act(self.bn(self.conv(x)))
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/modules/activation.py", line 394, in forward
+    return F.silu(input, inplace=self.inplace)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/nn/functional.py", line 1796, in silu
+    return torch._C._nn.silu(input)
+RuntimeError: CUDA out of memory. Tried to allocate 14.00 MiB (GPU 2; 10.76 GiB total capacity; 9.59 GiB already allocated; 10.00 MiB free; 9.62 GiB reserved in total by PyTorch)
+Traceback (most recent call last):
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/distributed/launch.py", line 340, in <module>
+    main()
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/distributed/launch.py", line 326, in main
+    sigkill_handler(signal.SIGTERM, None)  # not coming back
+  File "/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/torch/distributed/launch.py", line 301, in sigkill_handler
+    raise subprocess.CalledProcessError(returncode=last_return_code, cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/lion/anaconda3/envs/yunzhe/bin/python', '-u', 'train.py', '--local_rank=2', '--weights', 'yolov5s.pt', '--data', 'data/coco_c_7_2.yaml', '--epochs', '20', '--name', 'model_7_2_all_layer', '--batch-size', '192', '--device', '0,1,3']' returned non-zero exit status 1.
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+Killing subprocess 2071
+Killing subprocess 2072
+Killing subprocess 2073
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/home/lion/anaconda3/envs/yunzhe/lib/python3.7/multiprocessing/semaphore_tracker.py:144: UserWarning: semaphore_tracker: There appear to be 6 leaked semaphores to clean up at shutdown
+  len(cache))

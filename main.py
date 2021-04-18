@@ -1,26 +1,23 @@
-import torch
+import sys
 
-import numpy as np
+from torch.utils.data import DataLoader
 
 from config import Config
-from context_classification import context_classification_by_kmeans, context_cluster_by_hierarchy_cluster
-from context_classification import get_features
-from context_classification import context_cluster_by_dbscan
-from utils.data_io import gen_class, load_yolo
-from imagecorruptions import get_corruption_names
+from utils.data_io import coco_c
+from utils.preprocess import feature_getting
+
+sys.path.append('./yolov5')
+from yolo_test import test
+
 
 if __name__ == "__main__":
 
-    # get_features(Config)
+    # 获取图片代表集
+    sample_train = coco_c(Config.sample_train)
+    sample_val = coco_c(Config.sample_val)
 
-    gen_class()
+    train_loader = DataLoader(sample_train, batch_size=Config.batch_size, shuffle=True)
+    val_loader = DataLoader(sample_train, batch_size=Config.batch_size, shuffle=True)
 
-    # for corruption in get_corruption_names():
-    #     print(corruption)
-
-    # for index in range(7, 11):
-    #     print(get_corruption_names()[index])
-
-    # model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
-    #
-    # print(model)
+    # 代表集特征抽取
+    feature_set = feature_getting(train_loader)
