@@ -1,6 +1,4 @@
-
 class Config:
-
     # ############################################################################
     # # 一些曾经的参数
     #
@@ -35,3 +33,28 @@ class Config:
 
     # batch大小
     batch_size = 1024
+
+    # 代表集样本及标签
+    sample_set = '/yolov5/data/sample.yaml'
+
+    #########################################################
+    # test参数
+
+    model_list = ['base_model/coco_c_7_2.yaml', 'base_model/coco_c_8_2.yaml',
+                  'base_model/coco_c_9_2.yaml', 'base_model/coco_c_10_2.yaml']
+
+    weight_list = ['base_model/model_7_2.pt', 'base_model/model_8_2.pt',
+                   'base_model/model_9_2.pt', 'base_model/model_10_2.pt']
+
+    ##########################################################
+    # 场景分类器参数
+    learning_rate = 0.02
+    epoch_num = 25
+
+    ##########################################################
+    # 算法超参数
+    map_threshold = 0.42
+
+    ##########################################################
+    # 验证集大小
+    val_set_len = 2000  # todo 应当作为参数传入，当前实现先人工计算

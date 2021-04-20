@@ -6,9 +6,9 @@ import seaborn as sns
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram
 
-from utils.data_io import load_dataset
-from utils.preprocess import resnet_18_encoder
-from utils.tools import get_distance_matrix
+from my_utils.data_io import load_dataset
+from my_utils.preprocess import resnet_18_encoder
+from my_utils.tools import get_distance_matrix
 
 
 def get_features(Config):
